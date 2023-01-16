@@ -12,8 +12,12 @@ import { client, urlFor } from "../../lib/client";
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
+  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const handleBuyNow = () => {
+    onAdd(product, qty);
 
-  const { decQty, incQty, qty, onAdd } = useStateContext();
+    setShowCart(true);
+  };
 
   return (
     <div>
@@ -29,7 +33,7 @@ const ProductDetails = ({ product, products }) => {
           <div className="small-images-container">
             {image?.map((item, i) => (
               <img
-                key={item}
+                key={i}
                 src={urlFor(item)}
                 onMouseEnter={() => {
                   setIndex(i);
@@ -62,7 +66,7 @@ const ProductDetails = ({ product, products }) => {
               <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className="num" onClick="">
+              <span className="num">
                 {qty}
               </span>
               <span className="plus" onClick={incQty}>
@@ -78,7 +82,7 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to Cart
             </button>
-            <button className="buy-now" type="button" onClick="">
+            <button className="buy-now" type="button" onClick={handleBuyNow}>
               Buy Now
             </button>
           </div>
@@ -113,8 +117,7 @@ export const getStaticPaths = async () => {
     params: {
       slug: product.slug.current,
     },
-  })
-  );
+  }));
 
   return {
     paths,

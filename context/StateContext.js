@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Context = createContext();
@@ -91,6 +91,9 @@ export const StateContext = ({ children }) => {
     setShowCart,
     toggleCartItemQuantity,
     onRemove,
+    setCartItems,
+    setTotalPrice,
+    setTotalQuantities
   };
 
   return <Context.Provider value={cartContext}>{children}</Context.Provider>;
