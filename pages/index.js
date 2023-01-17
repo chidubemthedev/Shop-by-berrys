@@ -9,7 +9,7 @@ const Home = ({ products, bannerData }) => {
       {console.log(bannerData)}
       <div className="products-heading">
         <h2>Best selling products</h2>
-        <p>Speakers of many variations</p>
+        <p>Scents of many variations</p>
       </div>
       {/* <div>
         <h2>Featured products</h2>
