@@ -134,6 +134,7 @@ const Cart = () => {
               <button className="btn" type="button" onClick={handleCheckout}>
                 Pay with stripe
               </button>
+              <button className="btn" type="button">Continue on WhatsApp</button>
             </div>
           </div>
         )}
