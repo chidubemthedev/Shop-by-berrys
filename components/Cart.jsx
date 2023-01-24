@@ -44,6 +44,8 @@ const Cart = () => {
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
+ 
+
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
@@ -134,7 +136,8 @@ const Cart = () => {
               <button className="btn" type="button" onClick={handleCheckout}>
                 Pay with stripe
               </button>
-              <button className="btn" type="button">Continue on WhatsApp</button>
+              {/* <button className="btn" type="button" onClick={sendToWhatsapp}>Continue on WhatsApp</button> */}
+              <a href="https://api.whatsapp.com/send?phone=2347089936232" target='_blank' rel="noreferrer">Continue on WhatsApp</a>
             </div>
           </div>
         )}
