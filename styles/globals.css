@@ -20,6 +20,8 @@ a {
   max-width: 1400px;
   margin: auto;
   width: 100%;
+  overflow-x: hidden;
+    overflow-y: hidden;
 }
 .layout {
   padding: 10px;
@@ -131,7 +133,12 @@ span.text-red {
 .hero-banner-container {
   padding: 100px 40px;
   /* background-color: #dcdcdc; */
-  background: linear-gradient(90deg, rgba(118,9,121,1) 10%, rgba(2,0,36,1) 76%, rgba(118,9,121,1) 88%);
+  background: linear-gradient(
+    90deg,
+    rgba(118, 9, 121, 1) 10%,
+    rgba(2, 0, 36, 1) 76%,
+    rgba(118, 9, 121, 1) 88%
+  );
   border-radius: 15px;
   position: relative;
   height: 500px;

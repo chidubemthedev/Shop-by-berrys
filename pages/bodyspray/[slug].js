@@ -5,16 +5,16 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Product } from "../../components";
+import { BodySpray } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 import { client, urlFor } from "../../lib/client";
 
-const ProductDetails = ({ product, products }) => {
-  const { image, name, details, price } = product;
+const BodySprayDetails = ({ bodySpray, bodySprays }) => {
+  const { image, name, details, price } = bodySpray;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    onAdd(bodySpray, qty);
 
     setShowCart(true);
   };
@@ -78,7 +78,7 @@ const ProductDetails = ({ product, products }) => {
             <button
               className="add-to-cart"
               type="button"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => onAdd(bodySpray, qty)}
             >
               Add to Cart
             </button>
@@ -89,33 +89,34 @@ const ProductDetails = ({ product, products }) => {
         </div>
       </div>
 
-      {/* <div className="maylike-products-wrapper">
+      <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
-            {products.map((item) => (
-              <Product key={item._id} product={item} />
+            {bodySprays.map((item) => (
+              <BodySpray key={item._id} bodyspray={item} />
             ))}
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
+  const query = `*[_type == "bodyspray"] {
         slug {
             current
         }
     }
     `;
 
-  const products = await client.fetch(query);
+  const bodySprays = await client.fetch(query);
+  console.log(bodySprays)
 
-  const paths = products.map((product) => ({
+  const paths = bodySprays.map((bodyspray) => ({
     params: {
-      slug: product.slug.current,
+      slug: bodyspray.slug.current,
     },
   }));
 
@@ -126,20 +127,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const productsQuery = `*[_type == "product" && slug.current != '${slug}']`;
+  const query = `*[_type == "bodyspray" && slug.current == '${slug}'][0]`;
+  const productsQuery = `*[_type == "bodyspray" && slug.current != '${slug}']`;
 
-  const product = await client.fetch(query);
-  const products = await client.fetch(productsQuery);
+  const bodySpray = await client.fetch(query);
+  const bodySprays = await client.fetch(productsQuery);
 
-  console.log(product);
+  console.log(bodySpray);
 
   return {
     props: {
-      products,
-      product,
+      bodySprays,
+      bodySpray,
     },
   };
 };
 
-export default ProductDetails;
+export default BodySprayDetails;
