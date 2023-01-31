@@ -54,7 +54,7 @@ const FormPopup = ({ onClose, setShowCart }) => {
         setShowCart()
         router.push("/success");
         let message = "Payment complete! Reference: " + response.reference;
-        alert(message);
+        // alert(message);
       },
     });
 
