@@ -617,6 +617,16 @@ span.text-red {
   margin-top: 10px;
 }
 
+.form-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: aquamarine;
+  padding: 50px;
+  z-index: 100;
+}
+
 @media screen and (max-width: 800px) {
   .hero-banner-container {
     height: 560px;

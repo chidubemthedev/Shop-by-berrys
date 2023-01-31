@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import {
   AiOutlineMinus,
@@ -13,6 +13,7 @@ import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
 import Success from "../pages/success";
 import { useRouter } from "next/router";
+import FormPopup from "./FormPopup";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -25,7 +26,9 @@ const Cart = () => {
     onRemove,
   } = useStateContext();
 
-  const router = useRouter()
+  const [paymentActive, setPaymentActive] = useState(false);
+
+  const router = useRouter();
 
   const handleCheckout = async () => {
     console.log(cartItems);
@@ -39,38 +42,35 @@ const Cart = () => {
       body: JSON.stringify(cartItems),
     });
 
-    if(response.statusCode === 500) return;
-    
+    if (response.statusCode === 500) return;
+
     const data = await response.json();
 
-    toast.loading('Redirecting...');
+    toast.loading("Redirecting...");
 
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
   const handlePaymentsPaystack = () => {
     let handler = PaystackPop.setup({
-        key: 'pk_test_9b3694a5d585f48ed2e2deb8136eb34ad8d2d356', // Replace with your public key
-        email: 'chukwudubem7@gmail.com',
-        name: 'Valentine',
-        amount: totalPrice * 100,
-        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-        // label: "Optional string that replaces customer email"
-        onClose: function(){
-          // router.push('/success')
-          alert('Window closed.');
-        },
-        callback: function(response){
-          router.push('/success')
-          let message = 'Payment complete! Reference: ' + response.reference;
-          alert(message);
-        }
-      });
+      key: "pk_test_9b3694a5d585f48ed2e2deb8136eb34ad8d2d356", // Replace with your public key
+      email: "chukwudubem7@gmail.com",
+      amount: totalPrice * 100,
+      ref: `${+Math.floor(Math.random() * 1000000000 + 1)}`, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      onClose: function () {
+        // router.push('/success')
+        alert("Window closed.");
+      },
+      callback: function (response) {
+        router.push("/success");
+        let message = "Payment complete! Reference: " + response.reference;
+        alert(message);
+      },
+    });
 
-      handler.openIframe();
-}
-
- 
+    handler.openIframe();
+  };
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
@@ -125,9 +125,7 @@ const Cart = () => {
                           >
                             <AiOutlineMinus />
                           </span>
-                          <span className="num">
-                            {item.quantity}
-                          </span>
+                          <span className="num">{item.quantity}</span>
                           <span
                             className="plus"
                             onClick={() =>
@@ -159,14 +157,26 @@ const Cart = () => {
               <h3>#{totalPrice}</h3>
             </div>
             <div className="btn-container">
-              <button className="btn" type="button" onClick={handlePaymentsPaystack}>
-                Pay with stripe
+              <button
+                className="btn"
+                type="button"
+                onClick={() => setPaymentActive(!paymentActive)}
+              >
+                Pay Now
               </button>
               {/* <button className="btn" type="button" onClick={sendToWhatsapp}>Continue on WhatsApp</button> */}
-              <a href="https://api.whatsapp.com/send?phone=2347089936232" target='_blank' rel="noreferrer">Continue on WhatsApp</a>
+              <a
+                href="https://api.whatsapp.com/send?phone=2347089936232"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Continue on WhatsApp
+              </a>
             </div>
           </div>
         )}
+
+        {paymentActive && <FormPopup onClose={() => setPaymentActive(false)} />}
       </div>
     </div>
   );
