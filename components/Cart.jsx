@@ -11,8 +11,6 @@ import { toast } from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
-import Success from "../pages/success";
-import { useRouter } from "next/router";
 import FormPopup from "./FormPopup";
 
 const Cart = () => {
@@ -27,8 +25,6 @@ const Cart = () => {
   } = useStateContext();
 
   const [paymentActive, setPaymentActive] = useState(false);
-
-  const router = useRouter();
 
   const handleCheckout = async () => {
     console.log(cartItems);
@@ -49,27 +45,6 @@ const Cart = () => {
     toast.loading("Redirecting...");
 
     stripe.redirectToCheckout({ sessionId: data.id });
-  };
-
-  const handlePaymentsPaystack = () => {
-    let handler = PaystackPop.setup({
-      key: "pk_test_9b3694a5d585f48ed2e2deb8136eb34ad8d2d356", // Replace with your public key
-      email: "chukwudubem7@gmail.com",
-      amount: totalPrice * 100,
-      ref: `${+Math.floor(Math.random() * 1000000000 + 1)}`, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-      // label: "Optional string that replaces customer email"
-      onClose: function () {
-        // router.push('/success')
-        alert("Window closed.");
-      },
-      callback: function (response) {
-        router.push("/success");
-        let message = "Payment complete! Reference: " + response.reference;
-        alert(message);
-      },
-    });
-
-    handler.openIframe();
   };
 
   return (
@@ -176,7 +151,7 @@ const Cart = () => {
           </div>
         )}
 
-        {paymentActive && <FormPopup onClose={() => setPaymentActive(false)} />}
+        {paymentActive && <FormPopup onClose={() => setPaymentActive(false)} setShowCart={() =>setShowCart(false)} />}
       </div>
     </div>
   );
