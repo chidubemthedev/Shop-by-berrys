@@ -4,4 +4,4 @@ import banner from './banner'
 import mists from './mists'
 import perfumes from './perfumes'
 
-export const schemaTypes = [product, banner, bodySpray]
+export const schemaTypes = [product, banner, bodySpray, mists, perfumes]
