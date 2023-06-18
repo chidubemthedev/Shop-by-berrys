@@ -1,6 +1,7 @@
 import React from "react";
 import { client } from "../lib/client";
 import { BodySpray, Product, FooterBanner, HeroBanner } from "../components";
+import Link from "next/link";
 
 const Home = ({ products, bannerData, bodySprays }) => {
   return (
@@ -26,7 +27,8 @@ const Home = ({ products, bannerData, bodySprays }) => {
         {bodySprays?.map((bodyspray) => (
           <BodySpray key={bodyspray._id} bodyspray={bodyspray} />
         ))}
-        <button className="btn">See More Sprays</button>
+        {/* <button className="btn">See More Sprays</button> */}
+        <Link href="/bodyspray"><button className="btn">See More Sprays</button></Link>
       </div>
 
       {/* <div>
