@@ -162,6 +162,15 @@ span.text-red {
   color: black;
 }
 
+.for-hero-tw {
+  background: linear-gradient(
+    90deg,
+    rgba(118, 9, 121, 1) 10%,
+    rgba(2, 0, 36, 1) 76%,
+    rgba(118, 9, 121, 1) 88%
+  );
+}
+
 .hero-banner-container {
   padding: 100px 40px;
   margin-top: 60px;

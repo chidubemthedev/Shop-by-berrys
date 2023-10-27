@@ -6,7 +6,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        linearGradientColors: {
+          custom: [
+            "rgba(118, 9, 121, 1) 10%",
+            "rgba(2, 0, 36, 1) 76%",
+            "rgba(118, 9, 121, 1) 88%",
+          ],
+        },
+      },
+    },
   },
   plugins: [],
 };

@@ -7,7 +7,7 @@ import { urlFor } from "../lib/client";
 const HeroBanner = ({ heroBanner }) => {
   return (
     <>
-      <div className="hero-banner-container">
+      {/* <div className="hero-banner-container">
         <div>
           <p className="beats-solo">{heroBanner.smallText}</p>
           <h3>{heroBanner.midText}</h3>
@@ -27,9 +27,9 @@ const HeroBanner = ({ heroBanner }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="bg-green-500 flex flex-col md:flex-row md:gap-[30px] md:items-center min-h-[500px] mt-[60px] rounded-[15px] leading-[0.9]">
+      <div className="for-hero-tw flex flex-col md:flex-row md:gap-[30px] md:items-center min-h-[500px] mt-[65px] rounded-[15px] leading-[0.9]">
         <div className="pl-[15px] md:pl-[40px] pt-[90px]">
           <p className="text-[15px] md:text-[20px] ml-[10px]">
             {heroBanner.smallText}
@@ -52,7 +52,7 @@ const HeroBanner = ({ heroBanner }) => {
           </div>
         </div>
 
-        <div className="bg-red-300">
+        <div className="">
           <img
             // className="hero-banner-image"
             src={urlFor(heroBanner.image)}
@@ -60,9 +60,9 @@ const HeroBanner = ({ heroBanner }) => {
           />
         </div>
 
-        <div className="pl-[15px] py-[20px] bg-red-600 flex flex-col justify-end md:h-[500px]">
-          <div className="flex flex-col bg-red-200">
-            <h6 className="mb-[12px] font-bold text-[16px] md:self-end text-[#deb887]">
+        <div className="pl-[15px] py-[20px] flex flex-col justify-end md:h-[500px]">
+          <div className="flex flex-col">
+            <h6 className="mb-[12px] font-bold text-[16px] md:self-end text-[#deb887] pr-[50px]">
               Description
             </h6>
             <p className="font-thin text-[#f5f5f5]">{heroBanner.desc}</p>
