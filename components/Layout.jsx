@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout">
+    <div>
       <Head>
         <title>Berry&apos;s Fragrances</title>
         {/* <link rel="icon" href="../assets/LogoTrans.png" /> */}
@@ -16,7 +16,9 @@ const Layout = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <main className="main-container">{children}</main>
+      <div className="layout">
+        <main className="main-container">{children}</main>
+      </div>
       <footer>
         <Footer />
       </footer>

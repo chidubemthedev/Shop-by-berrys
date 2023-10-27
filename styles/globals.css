@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body,
 * {
@@ -21,7 +25,7 @@ a {
   margin: auto;
   width: 100%;
   overflow-x: hidden;
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 .layout {
   padding: 10px;
@@ -29,10 +33,14 @@ a {
 
 .navbar-container {
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  margin: 6px 18px;
-  position: relative;
+  position: fixed;
+  padding: 7px 20px;
+  background-color: white;
+  z-index: 100;
 }
+
 .marquee-text {
   font-size: 29px;
   font-weight: 600;
@@ -98,26 +106,49 @@ span.text-red {
   font-weight: 600;
 }
 .products-container {
+  /* background-color: aquamarine; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 15px;
-  margin-top: 20px;
-  width: 100%;
 }
+
+.item {
+  flex: 1; /* Each item takes up equal space */
+  max-width: calc(50% - 10px); /* 2 items per row, accounting for margins */
+  margin: 5px; /* Add some margin for spacing between items */
+}
+
+/* Media query for larger screens */
+@media screen and (min-width: 768px) {
+  .item {
+    max-width: calc(25% - 10px); /* 4 items per row, accounting for margins */
+  }
+}
+
 .product-card {
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: #324d67;
 }
-.product-card:hover {
-  transform: scale(1.1, 1.1);
+
+.product-card img {
+  width: 100%;
+  min-width: 105px;
+  height: auto;
+  border-radius: 15px;
+  background-color: #ebebeb;
 }
+
+.product-card:hover {
+  transform: scale(1.01, 1.03);
+}
+
 .product-image {
   border-radius: 15px;
   background-color: #ebebeb;
-  transform: scale(1, 1);
+  transform: scale(1.05, 1.05);
   transition: transform 0.5s ease;
 }
 
@@ -132,6 +163,7 @@ span.text-red {
 
 .hero-banner-container {
   padding: 100px 40px;
+  margin-top: 60px;
   /* background-color: #dcdcdc; */
   background: linear-gradient(
     90deg,
@@ -175,8 +207,8 @@ span.text-red {
   position: absolute;
   top: 0%;
   right: 20%;
-  width: 450px;
-  height: 450px;
+  /* width: 450px; */
+  /* height: 450px; */
 }
 
 .desc {

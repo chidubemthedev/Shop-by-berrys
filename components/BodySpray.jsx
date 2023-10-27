@@ -5,7 +5,7 @@ import { urlFor } from "../lib/client";
 
 const BodySpray = ({ bodyspray: { image, name, slug, price } }) => {
   return (
-    <div>
+    <div className="item">
       <Link href={`bodyspray/${slug.current}`}>
         <div className="product-card">
           <img
