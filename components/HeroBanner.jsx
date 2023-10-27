@@ -31,8 +31,10 @@ const HeroBanner = ({ heroBanner }) => {
 
       <div className="bg-green-500 flex flex-col md:flex-row md:gap-[30px] md:items-center min-h-[500px] mt-[60px] rounded-[15px] leading-[0.9]">
         <div className="pl-[15px] md:pl-[40px] pt-[90px]">
-          <p className="text-[15px] md:text-[20px]">{heroBanner.smallText}</p>
-          <h3 className="text-[2rem] md:text-[4rem] mt-[4px]">
+          <p className="text-[15px] md:text-[20px] ml-[10px]">
+            {heroBanner.smallText}
+          </p>
+          <h3 className="text-[2rem] md:text-[4rem] mt-[4px] ml-[5px]">
             {heroBanner.midText}
           </h3>
           <h1 className="text-white uppercase text-[5rem] md:text-[10rem]">
@@ -41,7 +43,7 @@ const HeroBanner = ({ heroBanner }) => {
           <div>
             <Link href={`product/${heroBanner.product}`}>
               <button
-                className="rounded-[15px] px-[16px] py-[10px] bg-[#f02d34] text-white mt-[40px] text-[18px] font-medium "
+                className="rounded-[15px] px-[16px] py-[10px] bg-[#f02d34] text-white mt-[20px] md:mt-[40px] text-[18px] font-medium"
                 type="button"
               >
                 {heroBanner.buttonText}
@@ -58,8 +60,8 @@ const HeroBanner = ({ heroBanner }) => {
           />
         </div>
 
-        <div className="pl-[15px] py-[20px] bg-red-600 h-full">
-          <div className="flex flex-col">
+        <div className="pl-[15px] py-[20px] bg-red-600 flex flex-col justify-end md:h-[500px]">
+          <div className="flex flex-col bg-red-200">
             <h6 className="mb-[12px] font-bold text-[16px] md:self-end text-[#deb887]">
               Description
             </h6>
