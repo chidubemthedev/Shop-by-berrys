@@ -165,9 +165,9 @@ span.text-red {
 .for-hero-tw {
   background: linear-gradient(
     90deg,
-    rgba(118, 9, 121, 1) 10%,
-    rgba(2, 0, 36, 1) 76%,
-    rgba(118, 9, 121, 1) 88%
+    rgba(118, 9, 121, 1) 0%,
+    rgba(118, 9, 121, 1) 29%,
+    rgba(175, 26, 96, 0.9500175070028011) 87%
   );
 }
 
