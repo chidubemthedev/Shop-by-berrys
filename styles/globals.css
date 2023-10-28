@@ -59,7 +59,7 @@ a {
   white-space: nowrap;
   will-change: transform;
   animation: marquee 15s linear infinite;
-  width: 180%;
+  /* width: 180%; */
 }
 .track:hover {
   animation-play-state: paused;
@@ -799,7 +799,7 @@ span.text-red {
   }
   .track {
     animation: marquee 10s linear infinite;
-    width: 550%;
+    /* width: 550%; */
   }
   .success-wrapper,
   .cancel-wrapper {
