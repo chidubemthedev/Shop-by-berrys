@@ -43,7 +43,7 @@ const HeroBanner = ({ heroBanner }) => {
           <div>
             <Link href={`product/${heroBanner.product}`}>
               <button
-                className="rounded-[15px] px-[16px] py-[10px] bg-[#f02d34] text-white mt-[20px] md:mt-[40px] text-[18px] font-medium"
+                className="rounded-[15px] px-[16px] py-[14px] bg-[#f02d34] text-white mt-[20px] md:mt-[40px] text-[18px] font-medium"
                 type="button"
               >
                 {heroBanner.buttonText}
@@ -52,7 +52,7 @@ const HeroBanner = ({ heroBanner }) => {
           </div>
         </div>
 
-        <div className="">
+        <div className="flex justify-center">
           <img
             // className="hero-banner-image"
             src={urlFor(heroBanner.image)}
@@ -60,7 +60,7 @@ const HeroBanner = ({ heroBanner }) => {
           />
         </div>
 
-        <div className="pl-[15px] py-[20px] flex flex-col justify-end md:h-[500px]">
+        <div className="pl-[15px] py-[20px] md:flex flex-col justify-end md:h-[500px] hidden">
           <div className="flex flex-col">
             <h6 className="mb-[12px] font-bold text-[16px] md:self-end text-[#deb887] pr-[50px]">
               Description

@@ -7,8 +7,7 @@ const Home = ({ products, bannerData, bodySprays }) => {
   return (
     <>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
-      {/* {console.log(bannerData)} */}
-      <div>
+      <div className="">
         <div className="products-heading">
           <h2>Best selling products</h2>
           <p>Scents of many variations</p>
@@ -18,7 +17,7 @@ const Home = ({ products, bannerData, bodySprays }) => {
             <Product key={product._id} product={product} />
           ))}
         </div>
-        <div className="products-container">
+        <div className="flex justify-center">
           <button className="btn">See More Best Sellers</button>
         </div>
       </div>
@@ -32,21 +31,17 @@ const Home = ({ products, bannerData, bodySprays }) => {
           {bodySprays?.map((bodyspray) => (
             <BodySpray key={bodyspray._id} bodyspray={bodyspray} />
           ))}
-          {/* <button className="btn">See More Sprays</button> */}
         </div>
-        <Link href="/bodyspray">
-          <button className="btn">See More Sprays</button>
-        </Link>
+        <div className="flex justify-center">
+          <Link
+            className="btn flex items-center justify-center"
+            href="/bodyspray"
+          >
+            <button>See more sprays</button>
+          </Link>
+        </div>
       </div>
 
-      {/* <div>
-        <h2>Featured products</h2>
-        <p>Speakers of many variations</p>
-      </div>
-      <div>
-        <h2>Latest products</h2>
-        <p>Speakers of many variations</p>
-      </div> */}
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </>
   );

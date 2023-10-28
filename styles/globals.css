@@ -245,7 +245,7 @@ span.text-red {
 }
 .products-heading {
   text-align: center;
-  margin: 40px 0px;
+  margin: 60px 0px;
   color: #324d67;
 }
 .products-heading h2 {
@@ -458,8 +458,8 @@ span.text-red {
 .product-detail-container {
   display: flex;
   gap: 40px;
-  margin: 40px;
-  margin-top: 60px;
+  /* margin: 40px; */
+  /* margin-top: 100px; */
   color: #324d67;
 }
 
@@ -768,9 +768,9 @@ span.text-red {
   .buttons .buy-now {
     width: 150px;
   }
-  .product-detail-container {
+  /* .product-detail-container {
     margin: 20px;
-  }
+  } */
 
   .item-desc .flex {
     width: 200px;

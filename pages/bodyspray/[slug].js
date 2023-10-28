@@ -21,7 +21,7 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
 
   return (
     <div>
-      <div className="product-detail-container">
+      <div className="product-detail-container ml-[20px] mt-[120px]">
         <div>
           <div className="image-container">
             <img
@@ -46,9 +46,9 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
           </div>
         </div>
         <div className="product-detail-desc">
-          <h1>{name}</h1>
+          <h1 className="font-bold text-[40px]">{name}</h1>
           <div className="reviews">
-            <div>
+            <div className="flex">
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
@@ -62,13 +62,11 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
           <p className="price">#{price}</p>
           <div className="quantity">
             <h3>Quantity: </h3>
-            <p className="quantity-desc">
+            <p className="quantity-desc flex items-center">
               <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">
-                {qty}
-              </span>
+              <span className="num">{qty}</span>
               <span className="plus" onClick={incQty}>
                 <AiOutlinePlus />
               </span>
@@ -112,7 +110,7 @@ export const getStaticPaths = async () => {
     `;
 
   const bodySprays = await client.fetch(query);
-  console.log(bodySprays)
+  console.log(bodySprays);
 
   const paths = bodySprays.map((bodyspray) => ({
     params: {
