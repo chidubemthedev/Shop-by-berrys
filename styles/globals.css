@@ -397,7 +397,7 @@ span.text-red {
 .item-desc .flex {
   display: flex;
   justify-content: space-between;
-  width: 350px;
+  width: 300px;
   color: #324d67;
 }
 .item-desc .bottom {
@@ -773,7 +773,7 @@ span.text-red {
   } */
 
   .item-desc .flex {
-    width: 200px;
+    width: 250px;
   }
   .top {
     flex-wrap: wrap;
@@ -820,5 +820,19 @@ span.text-red {
   .btn-container {
     width: 300px;
     margin: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .cart-container {
+    width: 100vw;
+    padding: 4px;
+  }
+
+  .item-desc .flex {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    color: #324d67;
   }
 }

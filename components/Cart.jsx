@@ -86,12 +86,12 @@ const Cart = () => {
                   />
                   <div className="item-desc">
                     <div className="flex top">
-                      <h5>{item.name}</h5>
-                      <h4>#{item.price}</h4>
+                      <h5 className="font-bold">{item.name}</h5>
+                      <h4 className="font-medium">#{item.price}</h4>
                     </div>
                     <div className="flex bottom">
-                      <div>
-                        <p className="quantity-desc">
+                      <div className="flex justify-between">
+                        <p className="quantity-desc flex items-center max-w-fit">
                           <span
                             className="minus"
                             onClick={() =>
@@ -110,14 +110,14 @@ const Cart = () => {
                             <AiOutlinePlus />
                           </span>
                         </p>
+                        <button
+                          className="remove-item"
+                          type="button"
+                          onClick={() => onRemove(item)}
+                        >
+                          <TiDeleteOutline />
+                        </button>
                       </div>
-                      <button
-                        className="remove-item"
-                        type="button"
-                        onClick={() => onRemove(item)}
-                      >
-                        <TiDeleteOutline />
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -139,19 +139,25 @@ const Cart = () => {
               >
                 Pay Now
               </button>
-              {/* <button className="btn" type="button" onClick={sendToWhatsapp}>Continue on WhatsApp</button> */}
-              <a
+              {/* <a
                 href="https://api.whatsapp.com/send?phone=2347089936232"
                 target="_blank"
                 rel="noreferrer"
               >
-                Continue on WhatsApp
-              </a>
+                <button className="btn" type="button">
+                  Continue on WhatsApp
+                </button>
+              </a> */}
             </div>
           </div>
         )}
 
-        {paymentActive && <FormPopup onClose={() => setPaymentActive(false)} setShowCart={() =>setShowCart(false)} />}
+        {paymentActive && (
+          <FormPopup
+            onClose={() => setPaymentActive(false)}
+            setShowCart={() => setShowCart(false)}
+          />
+        )}
       </div>
     </div>
   );
