@@ -44,12 +44,28 @@ const Cart = () => {
   }
 
   const handlePaymentsPaystack = (email) => {
+    const simplifiedCartItems = cartItems.map((item) => ({
+      name: item.name,
+      type: item._type,
+      quantity: item.quantity,
+    }));
+    console.log(simplifiedCartItems);
+
     let handler = PaystackPop.setup({
       key: "pk_test_9b3694a5d585f48ed2e2deb8136eb34ad8d2d356", // Replace with your public key
       email: email,
       amount: totalPrice * 100,
       ref: `${+Math.floor(Math.random() * 1000000000 + 1)}`, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       // label: "Optional string that replaces customer email"
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Cart Items", // Display name for the custom field
+            variable_name: "cart_items", // Variable name for the custom field
+            value: JSON.stringify(simplifiedCartItems), // Convert cartItems to a JSON string
+          },
+        ],
+      },
       onClose: function () {
         // router.push('/success')
         alert("Window closed.");
