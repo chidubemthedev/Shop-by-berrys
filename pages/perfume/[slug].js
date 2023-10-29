@@ -9,13 +9,13 @@ import { SeeMore } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 import { client, urlFor } from "../../lib/client";
 
-const BodySprayDetails = ({ bodySpray, bodySprays }) => {
-  console.log("body", bodySprays);
-  const { image, name, details, price } = bodySpray;
+const PerfumesDetails = ({ perfume, perfumes }) => {
+  console.log("perf", perfume);
+  const { image, name, details, price } = perfume;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
   const handleBuyNow = () => {
-    onAdd(bodySpray, qty);
+    onAdd(perfume, qty);
 
     setShowCart(true);
   };
@@ -77,7 +77,7 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
             <button
               className="add-to-cart"
               type="button"
-              onClick={() => onAdd(bodySpray, qty)}
+              onClick={() => onAdd(perfume, qty)}
             >
               Add to Cart
             </button>
@@ -92,7 +92,7 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
         <h2>You may also like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
-            {bodySprays.map((item) => (
+            {perfumes.map((item) => (
               <SeeMore key={item._id} more={item} />
             ))}
           </div>
@@ -103,19 +103,19 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "bodyspray"] {
+  const query = `*[_type == "perfume"] {
         slug {
             current
         }
     }
     `;
 
-  const bodySprays = await client.fetch(query);
-  console.log(bodySprays);
+  const perfumes = await client.fetch(query);
+  console.log(perfumes);
 
-  const paths = bodySprays.map((bodyspray) => ({
+  const paths = perfumes.map((perfume) => ({
     params: {
-      slug: bodyspray.slug.current,
+      slug: perfume.slug.current,
     },
   }));
 
@@ -126,20 +126,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "bodyspray" && slug.current == '${slug}'][0]`;
-  const productsQuery = `*[_type == "bodyspray" && slug.current != '${slug}']`;
+  const query = `*[_type == "perfumes" && slug.current == '${slug}'][0]`;
+  const productsQuery = `*[_type == "perfumes" && slug.current != '${slug}']`;
 
-  const bodySpray = await client.fetch(query);
-  const bodySprays = await client.fetch(productsQuery);
+  const perfume = await client.fetch(query);
+  const perfumes = await client.fetch(productsQuery);
 
-  console.log(bodySpray);
+  console.log(perfume);
 
   return {
     props: {
-      bodySprays,
-      bodySpray,
+      perfumes,
+      perfume,
     },
   };
 };
 
-export default BodySprayDetails;
+export default PerfumesDetails;
