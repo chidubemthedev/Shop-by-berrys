@@ -8,3 +8,4 @@ export { default as Product } from "./Product";
 export { default as BodySpray } from "./BodySpray";
 export { default as Perfumes } from "./Perfumes";
 export { default as SeeMore } from "./SeeMore";
+export { default as Mists } from "./Mists";

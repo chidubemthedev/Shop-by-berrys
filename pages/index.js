@@ -6,10 +6,11 @@ import {
   FooterBanner,
   HeroBanner,
   Perfumes,
+  Mists,
 } from "../components";
 import Link from "next/link";
 
-const Home = ({ products, bannerData, bodySprays, perfumes }) => {
+const Home = ({ products, bannerData, bodySprays, perfumes, mists }) => {
   return (
     <>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
@@ -68,6 +69,23 @@ const Home = ({ products, bannerData, bodySprays, perfumes }) => {
         </div>
       </div>
 
+      <div>
+        <div className="products-heading">
+          <h2>Mists</h2>
+          <p>Mists to leave you soaked in fragrance all day!</p>
+        </div>
+        <div className="products-container">
+          {mists?.map((mist) => (
+            <Mists key={mist._id} mist={mist} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Link className="btn flex items-center justify-center" href="/mist">
+            <button>See more body mists</button>
+          </Link>
+        </div>
+      </div>
+
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </>
   );
@@ -83,6 +101,9 @@ export const getServerSideProps = async () => {
   const perfume = '*[_type == "perfumes"] | order(name) [0...6]';
   const perfumes = await client.fetch(perfume);
 
+  const mist = '*[_type == "mists"] | order(name) [0...6]';
+  const mists = await client.fetch(mist);
+
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
@@ -92,6 +113,7 @@ export const getServerSideProps = async () => {
       bannerData,
       bodySprays,
       perfumes,
+      mists,
     },
   };
 };
