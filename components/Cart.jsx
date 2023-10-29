@@ -14,8 +14,18 @@ import getStripe from "../lib/getStripe";
 import FormPopup from "./FormPopup";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
+import emailjs from "@emailjs/browser";
 
 const Cart = () => {
+  const [formValue, setFormValue] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+  });
+
   const cartRef = useRef();
   const {
     totalPrice,
@@ -26,11 +36,6 @@ const Cart = () => {
     onRemove,
   } = useStateContext();
 
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const numberRef = useRef(null);
-  const shippingAddressRef = useRef(null);
-  const cityRef = useRef(null);
   const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -43,7 +48,7 @@ const Cart = () => {
     setIsOpen(true);
   }
 
-  const handlePaymentsPaystack = (email) => {
+  const handlePaymentsPaystack = () => {
     const simplifiedCartItems = cartItems.map((item) => ({
       name: item.name,
       type: item._type,
@@ -53,7 +58,7 @@ const Cart = () => {
 
     let handler = PaystackPop.setup({
       key: "pk_test_9b3694a5d585f48ed2e2deb8136eb34ad8d2d356", // Replace with your public key
-      email: email,
+      email: formValue.email,
       amount: totalPrice * 100,
       ref: `${+Math.floor(Math.random() * 1000000000 + 1)}`, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       // label: "Optional string that replaces customer email"
@@ -72,6 +77,7 @@ const Cart = () => {
       },
       callback: function (response) {
         console.log("success");
+        emailToBerry();
         closeModal();
         // onClose();
         setShowCart();
@@ -84,15 +90,28 @@ const Cart = () => {
     handler.openIframe();
   };
 
-  const handleFormSubmit = () => {
-    const name = nameRef.current.value;
-    const email = emailRef.current.value;
-    const phoneNumber = numberRef.current.value;
-    const shippingAddress = shippingAddressRef.current.value;
-    const city = cityRef.current.value;
+  const emailToBerry = () => {
+    const serviceId = "service_6dytpud";
+    const templateId = "template_jhjosml";
+    const publicKey = "Q7dcW8jxf1kW3CLyO";
 
-    console.log(name, email, phoneNumber, shippingAddress, city);
-    handlePaymentsPaystack(email);
+    const templateParams = {
+      to_name: formValue.name,
+      to_email: formValue.email,
+      to_phoneNumber: formValue.phone,
+      to_address: formValue.address,
+      to_city: formValue.city,
+      to_state: formValue.state,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey).then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   };
 
   return (
@@ -241,7 +260,13 @@ const Cart = () => {
                         type="text"
                         required
                         id="name"
-                        ref={nameRef}
+                        value={formValue.name}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            name: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -253,7 +278,13 @@ const Cart = () => {
                         type="email"
                         required
                         id="email"
-                        ref={emailRef}
+                        value={formValue.email}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            email: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -265,7 +296,13 @@ const Cart = () => {
                         type="tel"
                         required
                         id="number"
-                        ref={numberRef}
+                        value={formValue.phone}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            phone: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -277,7 +314,13 @@ const Cart = () => {
                         type="text"
                         required
                         id="shipping"
-                        ref={shippingAddressRef}
+                        value={formValue.address}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            address: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -289,7 +332,31 @@ const Cart = () => {
                         type="text"
                         required
                         id="city"
-                        ref={cityRef}
+                        value={formValue.city}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            city: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="mt-2">
+                      <label htmlFor="city">State</label>
+                      <br />
+                      <input
+                        className="border-2 border-black w-full h-[50px] rounded-md px-2"
+                        type="text"
+                        required
+                        id="state"
+                        value={formValue.state}
+                        onChange={(e) =>
+                          setFormValue({
+                            ...formValue,
+                            state: e.target.value,
+                          })
+                        }
                       />
                     </div>
                   </div>
@@ -305,7 +372,7 @@ const Cart = () => {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-[#f02d34] px-4 py-2 text-sm font-medium text-white hover:scale-105"
-                      onClick={handleFormSubmit}
+                      onClick={handlePaymentsPaystack}
                     >
                       Proceed to pay
                     </button>
