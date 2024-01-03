@@ -3,10 +3,10 @@ import React from "react";
 
 import { urlFor } from "../lib/client";
 
-const Product = ({ product: { image, name, slug, price } }) => {
+const Perfumes = ({ perfume: { image, name, slug, price } }) => {
   return (
     <div className="item">
-      <Link href={`product/${slug.current}`}>
+      <Link href={`perfume/${slug.current}`}>
         <div className="product-card">
           <img
             src={urlFor(image && image[0])}
@@ -22,4 +22,4 @@ const Product = ({ product: { image, name, slug, price } }) => {
   );
 };
 
-export default Product;
+export default Perfumes;

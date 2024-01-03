@@ -5,16 +5,17 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Product, SeeMore } from "../../components";
+import { SeeMore } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 import { client, urlFor } from "../../lib/client";
 
-const ProductDetails = ({ product, products }) => {
-  const { image, name, details, price } = product;
+const PerfumesDetails = ({ perfume, perfumes }) => {
+  console.log("perf", perfume);
+  const { image, name, details, price } = perfume;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    onAdd(perfume, qty);
 
     setShowCart(true);
   };
@@ -76,7 +77,7 @@ const ProductDetails = ({ product, products }) => {
             <button
               className="add-to-cart"
               type="button"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => onAdd(perfume, qty)}
             >
               Add to Cart
             </button>
@@ -91,7 +92,7 @@ const ProductDetails = ({ product, products }) => {
         <h2>You may also like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
-            {products.map((item) => (
+            {perfumes.map((item) => (
               <SeeMore key={item._id} more={item} />
             ))}
           </div>
@@ -102,18 +103,19 @@ const ProductDetails = ({ product, products }) => {
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
+  const query = `*[_type == "perfume"] {
         slug {
             current
         }
     }
     `;
 
-  const products = await client.fetch(query);
+  const perfumes = await client.fetch(query);
+  console.log(perfumes);
 
-  const paths = products.map((product) => ({
+  const paths = perfumes.map((perfume) => ({
     params: {
-      slug: product.slug.current,
+      slug: perfume.slug.current,
     },
   }));
 
@@ -124,20 +126,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const productsQuery = `*[_type == "product" && slug.current != '${slug}']`;
+  const query = `*[_type == "perfumes" && slug.current == '${slug}'][0]`;
+  const productsQuery = `*[_type == "perfumes" && slug.current != '${slug}']`;
 
-  const product = await client.fetch(query);
-  const products = await client.fetch(productsQuery);
+  const perfume = await client.fetch(query);
+  const perfumes = await client.fetch(productsQuery);
 
-  console.log(product);
+  console.log(perfume);
 
   return {
     props: {
-      products,
-      product,
+      perfumes,
+      perfume,
     },
   };
 };
 
-export default ProductDetails;
+export default PerfumesDetails;

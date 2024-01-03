@@ -13,10 +13,8 @@ const Navbar = () => {
     <div className="navbar-container">
       <p className="logo">
         <Link href="/">
-          <Image src={logo} alt="logo" width={120} height={70} />
+          <Image src={logo} alt="logo" width={100} height={50} />
         </Link>
-
-        {/* <Link href="/"> Berry&apos;s Fragrances</Link> */}
       </p>
       <button
         className="cart-icon"

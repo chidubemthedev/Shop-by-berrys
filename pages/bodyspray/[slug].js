@@ -5,11 +5,12 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { BodySpray } from "../../components";
+import { SeeMore } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 import { client, urlFor } from "../../lib/client";
 
 const BodySprayDetails = ({ bodySpray, bodySprays }) => {
+  console.log("body", bodySprays);
   const { image, name, details, price } = bodySpray;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
@@ -21,7 +22,7 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
 
   return (
     <div>
-      <div className="product-detail-container">
+      <div className="product-detail-container ml-[20px] mt-[120px]">
         <div>
           <div className="image-container">
             <img
@@ -46,9 +47,9 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
           </div>
         </div>
         <div className="product-detail-desc">
-          <h1>{name}</h1>
+          <h1 className="font-bold text-[40px]">{name}</h1>
           <div className="reviews">
-            <div>
+            <div className="flex">
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
@@ -62,13 +63,11 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
           <p className="price">#{price}</p>
           <div className="quantity">
             <h3>Quantity: </h3>
-            <p className="quantity-desc">
+            <p className="quantity-desc flex items-center">
               <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">
-                {qty}
-              </span>
+              <span className="num">{qty}</span>
               <span className="plus" onClick={incQty}>
                 <AiOutlinePlus />
               </span>
@@ -94,7 +93,7 @@ const BodySprayDetails = ({ bodySpray, bodySprays }) => {
         <div className="marquee">
           <div className="maylike-products-container track">
             {bodySprays.map((item) => (
-              <BodySpray key={item._id} bodyspray={item} />
+              <SeeMore key={item._id} more={item} />
             ))}
           </div>
         </div>
@@ -112,7 +111,7 @@ export const getStaticPaths = async () => {
     `;
 
   const bodySprays = await client.fetch(query);
-  console.log(bodySprays)
+  console.log(bodySprays);
 
   const paths = bodySprays.map((bodyspray) => ({
     params: {

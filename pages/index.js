@@ -1,44 +1,91 @@
 import React from "react";
 import { client } from "../lib/client";
-import { BodySpray, Product, FooterBanner, HeroBanner } from "../components";
+import {
+  BodySpray,
+  Product,
+  FooterBanner,
+  HeroBanner,
+  Perfumes,
+  Mists,
+} from "../components";
 import Link from "next/link";
 
-const Home = ({ products, bannerData, bodySprays }) => {
+const Home = ({ products, bannerData, bodySprays, perfumes, mists }) => {
   return (
     <>
       <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
-      {/* {console.log(bannerData)} */}
-      <div className="products-heading">
-        <h2>Best selling products</h2>
-        <p>Scents of many variations</p>
-      </div>
-      <div className="products-container">
-        {products?.map((product) => (
-          <Product key={product._id} product={product} />
-        ))}
-        <button className="btn">See More Best Sellers</button>
-      </div>
-
-      <div className="products-heading">
-        <h2>Body Sprays</h2>
-        <p>Sweet fregrances in a compact container</p>
-      </div>
-      <div className="products-container">
-        {bodySprays?.map((bodyspray) => (
-          <BodySpray key={bodyspray._id} bodyspray={bodyspray} />
-        ))}
-        {/* <button className="btn">See More Sprays</button> */}
-        <Link href="/bodyspray"><button className="btn">See More Sprays</button></Link>
+      <div className="">
+        <div className="products-heading">
+          <h2>Best selling products</h2>
+          <p>Scents of many variations</p>
+        </div>
+        <div className="products-container">
+          {products?.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <button className="btn">See More Best Sellers</button>
+        </div>
       </div>
 
-      {/* <div>
-        <h2>Featured products</h2>
-        <p>Speakers of many variations</p>
-      </div>
       <div>
-        <h2>Latest products</h2>
-        <p>Speakers of many variations</p>
-      </div> */}
+        <div className="products-heading">
+          <h2>Body Sprays</h2>
+          <p>Sweet fregrances in a compact container</p>
+        </div>
+        <div className="products-container">
+          {bodySprays?.map((bodyspray) => (
+            <BodySpray key={bodyspray._id} bodyspray={bodyspray} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Link
+            className="btn flex items-center justify-center"
+            href="/bodyspray"
+          >
+            <button>See more sprays</button>
+          </Link>
+        </div>
+      </div>
+
+      <div>
+        <div className="products-heading">
+          <h2>Perfumes</h2>
+          <p>Perfumes to make you stand out!</p>
+        </div>
+        <div className="products-container">
+          {perfumes?.map((perfume) => (
+            <Perfumes key={perfume._id} perfume={perfume} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Link
+            className="btn flex items-center justify-center"
+            href="/perfume"
+          >
+            <button>See more perfumes</button>
+          </Link>
+        </div>
+      </div>
+
+      <div>
+        <div className="products-heading">
+          <h2>Mists</h2>
+          <p>Mists to leave you soaked in fragrance all day!</p>
+        </div>
+        <div className="products-container">
+          {mists?.map((mist) => (
+            <Mists key={mist._id} mist={mist} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Link className="btn flex items-center justify-center" href="/mist">
+            <button>See more body mists</button>
+          </Link>
+        </div>
+      </div>
+
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </>
   );
@@ -51,6 +98,12 @@ export const getServerSideProps = async () => {
   const body = '*[_type == "bodyspray"] | order(name) [0...6]';
   const bodySprays = await client.fetch(body);
 
+  const perfume = '*[_type == "perfumes"] | order(name) [0...6]';
+  const perfumes = await client.fetch(perfume);
+
+  const mist = '*[_type == "mists"] | order(name) [0...6]';
+  const mists = await client.fetch(mist);
+
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
@@ -59,6 +112,8 @@ export const getServerSideProps = async () => {
       products,
       bannerData,
       bodySprays,
+      perfumes,
+      mists,
     },
   };
 };
